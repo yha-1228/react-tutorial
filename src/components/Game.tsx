@@ -77,6 +77,7 @@ class Game extends React.Component<any, GameState> {
       stepNumber: 0,
       xIsNext: true,
     };
+    this.handleSquareClick = this.handleSquareClick.bind(this);
   }
 
   handleSquareClick(i: number) {
@@ -123,9 +124,7 @@ class Game extends React.Component<any, GameState> {
         <div className="game-board">
           <Board
             squares={current.squares}
-            onSquareClick={(i) => {
-              this.handleSquareClick(i);
-            }}
+            onSquareClick={this.handleSquareClick}
           />
         </div>
         <div className="game-info">
