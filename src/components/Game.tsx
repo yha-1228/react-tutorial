@@ -1,11 +1,12 @@
 // TODO: 履歴内のそれぞれの着手の位置を (col, row) というフォーマットで表示する。
-// TODO: 着手履歴のリスト中で現在選択されているアイテムをボールドにする。
+// DONE: 着手履歴のリスト中で現在選択されているアイテムをボールドにする。
 // TODO: Board でマス目を並べる部分を、ハードコーディングではなく 2 つのループを使用するように書き換える。
 // TODO: 着手履歴のリストを昇順・降順いずれでも並べかえられるよう、トグルボタンを追加する。
 // TODO: どちらかが勝利した際に、勝利につながった 3 つのマス目をハイライトする。
 // TODO: どちらも勝利しなかった場合、結果が引き分けになったというメッセージを表示する。
 
 import React from 'react';
+import classNames from 'classnames';
 import calculateWinner from './calculateWinner';
 
 type SquareProps = {
@@ -83,10 +84,12 @@ class Game extends React.Component<any, GameState> {
 
     squares[i] = this.state.xIsNext ? 'X' : 'O';
     this.setState({
-      histories: [...histories, { squares: squares }],
-      stepNumber: histories.length,
-      xIsNext: !this.props.xIsNext,
+      histories: [...histories, { squares: squares }], // マス目の履歴
+      stepNumber: histories.length, // 履歴の数
+      xIsNext: !this.state.xIsNext,
     });
+
+    console.log(this.state)
   }
 
   jumpTo(historyIndex: number) {
@@ -100,16 +103,23 @@ class Game extends React.Component<any, GameState> {
     const histories = this.state.histories;
     const current = histories[this.state.stepNumber];
     const winner = calculateWinner(current.squares);
+
     const moves = histories.map((history, historyIndex) => (
       <li key={historyIndex}>
-        <button onClick={() => this.jumpTo(historyIndex)}>
-          {historyIndex ? `Go to move ${historyIndex}` : 'Go to game start'}
+        <button
+          className={classNames({ selected: this.state.stepNumber === historyIndex })}
+          onClick={() => {
+            this.jumpTo(historyIndex);
+          }}
+        >
+          {historyIndex ? `Go to move #${historyIndex}` : `Go to game start`}
         </button>
       </li>
     ));
+
     const status = winner
       ? `Winner: ${winner}`
-      : `Next player: ${this.props.xIsNext ? 'X' : 'O'}`;
+      : `Next player: ${this.state.xIsNext ? 'X' : 'O'}`;
 
     return (
       <div className="game">
