@@ -71,6 +71,7 @@ class Game extends React.Component<any, GameState> {
       xIsNext: true,
     };
     this.handleSquareClick = this.handleSquareClick.bind(this);
+    this.jumpTo = this.jumpTo.bind(this);
   }
 
   handleSquareClick(i: number) {
@@ -78,7 +79,6 @@ class Game extends React.Component<any, GameState> {
     const current = histories[histories.length - 1];
     const squares = [...current.squares];
 
-    // 勝者が存在する or 番号があるマスをクリックした
     if (calculateWinner(squares) || squares[i]) {
       return;
     }
@@ -91,23 +91,24 @@ class Game extends React.Component<any, GameState> {
     });
   }
 
-  jumpTo(step: number) {
-    this.setState({ stepNumber: step, xIsNext: step % 2 === 0 });
+  jumpTo(historyIndex: number) {
+    this.setState({
+      stepNumber: historyIndex,
+      xIsNext: historyIndex % 2 === 0,
+    });
   }
 
   render() {
     const histories = this.state.histories;
     const current = histories[this.state.stepNumber];
     const winner = calculateWinner(current.squares);
-    const moves = histories.map((history, historyIndex) => {
-      return (
-        <li key={historyIndex}>
-          <button onClick={() => this.jumpTo(historyIndex)}>
-            {historyIndex ? `Go to move ${historyIndex}` : 'Go to game start'}
-          </button>
-        </li>
-      );
-    });
+    const moves = histories.map((history, historyIndex) => (
+      <li key={historyIndex}>
+        <button onClick={() => this.jumpTo(historyIndex)}>
+          {historyIndex ? `Go to move ${historyIndex}` : 'Go to game start'}
+        </button>
+      </li>
+    ));
     const status = winner
       ? `Winner: ${winner}`
       : `Next player: ${this.props.xIsNext ? 'X' : 'O'}`;
