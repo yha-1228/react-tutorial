@@ -64,7 +64,7 @@ class Board extends React.Component<BoradProps, {}> {
 }
 
 type GameState = {
-  history: { squares: any[] }[];
+  histories: { squares: any[] }[];
   stepNumber: number;
   xIsNext: boolean;
 };
@@ -73,15 +73,15 @@ class Game extends React.Component<any, GameState> {
   constructor(props: any) {
     super(props);
     this.state = {
-      history: [{ squares: Array(9).fill(null) }],
+      histories: [{ squares: Array(9).fill(null) }],
       stepNumber: 0,
       xIsNext: true,
     };
   }
 
   handleSquareClick(i: number) {
-    const history = this.state.history.slice(0, this.state.stepNumber + 1);
-    const current = history[history.length - 1];
+    const histories = this.state.histories.slice(0, this.state.stepNumber + 1);
+    const current = histories[histories.length - 1];
     const squares = [...current.squares];
 
     // 勝者が存在する or 番号があるマスをクリックした
@@ -91,8 +91,8 @@ class Game extends React.Component<any, GameState> {
 
     squares[i] = this.state.xIsNext ? 'X' : 'O';
     this.setState({
-      history: [...history, { squares: squares }],
-      stepNumber: history.length,
+      histories: [...histories, { squares: squares }],
+      stepNumber: histories.length,
       xIsNext: !this.props.xIsNext,
     });
   }
@@ -102,14 +102,15 @@ class Game extends React.Component<any, GameState> {
   }
 
   render() {
-    const history = this.state.history;
-    const current = history[this.state.stepNumber];
+    const histories = this.state.histories;
+    const current = histories[this.state.stepNumber];
     const winner = calculateWinner(current.squares);
-    const moves = history.map((step, move) => {
-      const description = move ? `Go to move ${move}` : 'Go to game start';
+    const moves = histories.map((history, historyIndex) => {
       return (
-        <li key={move}>
-          <button onClick={() => this.jumpTo(move)}>{description}</button>
+        <li key={historyIndex}>
+          <button onClick={() => this.jumpTo(historyIndex)}>
+            {historyIndex ? `Go to move ${historyIndex}` : 'Go to game start'}
+          </button>
         </li>
       );
     });
@@ -122,7 +123,9 @@ class Game extends React.Component<any, GameState> {
         <div className="game-board">
           <Board
             squares={current.squares}
-            onSquareClick={(i) => this.handleSquareClick(i)}
+            onSquareClick={(i) => {
+              this.handleSquareClick(i);
+            }}
           />
         </div>
         <div className="game-info">
