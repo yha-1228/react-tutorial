@@ -80,7 +80,16 @@ class Game extends React.Component<any, State> {
         <div>
           <Board squares={current.squares} onSquareClick={this.handleSquareClick} />
         </div>
+
         <div className="Game__info">
+          <p>
+            <button
+              onClick={() => this.setState({ sort: this.state.sort === 'asc' ? 'desc' : 'asc' })}
+            >
+              {this.state.sort}
+            </button>
+          </p>
+
           <div>{status}</div>
           <ol>{moves}</ol>
         </div>
