@@ -11,9 +11,7 @@ import calculateWinner from './calculateWinner';
 
 type SquareProps = {
   value: any;
-  onSquareClick: (
-    event: React.MouseEvent<HTMLButtonElement, MouseEvent>
-  ) => void;
+  onSquareClick: (event: React.MouseEvent<HTMLButtonElement, MouseEvent>) => void;
 };
 
 const Square: React.FC<SquareProps> = (props) => {
@@ -89,7 +87,7 @@ class Game extends React.Component<any, GameState> {
       xIsNext: !this.state.xIsNext,
     });
 
-    console.log(this.state)
+    console.log(this.state);
   }
 
   jumpTo(historyIndex: number) {
@@ -117,17 +115,12 @@ class Game extends React.Component<any, GameState> {
       </li>
     ));
 
-    const status = winner
-      ? `Winner: ${winner}`
-      : `Next player: ${this.state.xIsNext ? 'X' : 'O'}`;
+    const status = winner ? `Winner: ${winner}` : `Next player: ${this.state.xIsNext ? 'X' : 'O'}`;
 
     return (
       <div className="game">
         <div className="game-board">
-          <Board
-            squares={current.squares}
-            onSquareClick={this.handleSquareClick}
-          />
+          <Board squares={current.squares} onSquareClick={this.handleSquareClick} />
         </div>
         <div className="game-info">
           <div>{status}</div>
