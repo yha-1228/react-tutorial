@@ -60,7 +60,7 @@ class Game extends React.Component<any, State> {
     const current = histories[this.state.stepNumber];
     const winner = calculateWinner(current.squares);
 
-    const moves = histories.map((history, historyIndex) => (
+    const moves = histories.map((_, historyIndex) => (
       <li key={historyIndex}>
         <button
           className={classNames({ selected: this.state.stepNumber === historyIndex })}
