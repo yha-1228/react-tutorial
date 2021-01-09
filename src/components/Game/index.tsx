@@ -8,7 +8,7 @@
 import React from 'react';
 import classNames from 'classnames';
 import calculateWinner from './calculateWinner';
-import Square from './Square';
+import Square from '../Square';
 
 type BoradProps = {
   squares: string[];
