@@ -9,6 +9,7 @@ import React from 'react';
 import classNames from 'classnames';
 import calculateWinner from './calculateWinner';
 import Board from '../Board';
+import './style.css';
 
 type State = {
   histories: { squares: any[] }[];
@@ -75,11 +76,11 @@ class Game extends React.Component<any, State> {
     const status = winner ? `Winner: ${winner}` : `Next player: ${this.state.xIsNext ? 'X' : 'O'}`;
 
     return (
-      <div className="game">
+      <div className="Game">
         <div>
           <Board squares={current.squares} onSquareClick={this.handleSquareClick} />
         </div>
-        <div className="game-info">
+        <div className="Game__info">
           <div>{status}</div>
           <ol>{moves}</ol>
         </div>
