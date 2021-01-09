@@ -76,7 +76,7 @@ class Game extends React.Component<any, State> {
 
     return (
       <div className="game">
-        <div className="game-board">
+        <div>
           <Board squares={current.squares} onSquareClick={this.handleSquareClick} />
         </div>
         <div className="game-info">
