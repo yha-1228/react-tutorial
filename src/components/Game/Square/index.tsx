@@ -1,4 +1,5 @@
 import React from 'react';
+import './style.css';
 
 type SquareProps = {
   value: any;
@@ -7,7 +8,7 @@ type SquareProps = {
 
 const Square: React.FC<SquareProps> = (props) => {
   return (
-    <button className="square" onClick={props.onSquareClick}>
+    <button className="Square" onClick={props.onSquareClick}>
       {props.value}
     </button>
   );
