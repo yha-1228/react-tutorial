@@ -2,12 +2,12 @@ import React from 'react';
 import './style.css';
 import Square from '../Square';
 
-type BoradProps = {
+type Props = {
   squares: string[];
   onSquareClick: (i: number) => void;
 };
 
-const Board: React.FC<BoradProps> = ({ squares, onSquareClick }) => {
+const Board: React.FC<Props> = ({ squares, onSquareClick }) => {
   const renderSquare = (i: number) => (
     <Square value={squares[i]} onSquareClick={() => onSquareClick(i)} />
   );

@@ -10,13 +10,13 @@ import classNames from 'classnames';
 import calculateWinner from './calculateWinner';
 import Board from '../Board';
 
-type GameState = {
+type State = {
   histories: { squares: any[] }[];
   stepNumber: number;
   xIsNext: boolean;
 };
 
-class Game extends React.Component<any, GameState> {
+class Game extends React.Component<any, State> {
   constructor(props: any) {
     super(props);
     this.state = {
