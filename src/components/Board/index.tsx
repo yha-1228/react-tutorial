@@ -12,22 +12,19 @@ const Board: React.FC<Props> = ({ squares, onSquareClick }) => {
     <Square value={squares[i]} onSquareClick={() => onSquareClick(i)} />
   );
 
+  const rows = [0, 1, 2];
+
+  const cols = [0, 1, 2];
+
   return (
     <>
+      {[0, 3, 6]}
+      <div className="Board__row">{cols.map((col) => renderSquare(col))}</div>
       <div className="Board__row">
-        {renderSquare(0)}
-        {renderSquare(1)}
-        {renderSquare(2)}
+        {cols.map((col) => col + 3 * 1).map((col) => renderSquare(col))}
       </div>
       <div className="Board__row">
-        {renderSquare(3)}
-        {renderSquare(4)}
-        {renderSquare(5)}
-      </div>
-      <div className="Board__row">
-        {renderSquare(6)}
-        {renderSquare(7)}
-        {renderSquare(8)}
+        {cols.map((col) => col + 3 * 2).map((col) => renderSquare(col))}
       </div>
     </>
   );
