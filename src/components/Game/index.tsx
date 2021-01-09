@@ -8,19 +8,7 @@
 import React from 'react';
 import classNames from 'classnames';
 import calculateWinner from './calculateWinner';
-
-type SquareProps = {
-  value: any;
-  onSquareClick: (event: React.MouseEvent<HTMLButtonElement, MouseEvent>) => void;
-};
-
-const Square: React.FC<SquareProps> = (props) => {
-  return (
-    <button className="square" onClick={props.onSquareClick}>
-      {props.value}
-    </button>
-  );
-};
+import Square from './Square';
 
 type BoradProps = {
   squares: string[];
