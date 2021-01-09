@@ -15,6 +15,7 @@ type State = {
   histories: { squares: any[] }[];
   stepNumber: number;
   xIsNext: boolean;
+  sort: 'asc' | 'desc';
 };
 
 class Game extends React.Component<any, State> {
@@ -24,6 +25,7 @@ class Game extends React.Component<any, State> {
       histories: [{ squares: Array(9).fill(null) }],
       stepNumber: 0,
       xIsNext: true,
+      sort: 'asc',
     };
     this.handleSquareClick = this.handleSquareClick.bind(this);
     this.jumpTo = this.jumpTo.bind(this);
@@ -64,9 +66,7 @@ class Game extends React.Component<any, State> {
       <li key={historyIndex}>
         <button
           className={classNames({ selected: this.state.stepNumber === historyIndex })}
-          onClick={() => {
-            this.jumpTo(historyIndex);
-          }}
+          onClick={() => this.jumpTo(historyIndex)}
         >
           {historyIndex ? `Go to move #${historyIndex}` : `Go to game start`}
         </button>
