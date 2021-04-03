@@ -1,13 +1,13 @@
-import React from 'react';
-import './style.css';
-import Square from '../Square';
+import React from "react";
+import "./style.css";
+import Square from "../Square";
 
-type Props = {
+type BoardProps = {
   squares: string[];
   onSquareClick: (i: number) => void;
 };
 
-const Board: React.FC<Props> = ({ squares, onSquareClick }) => {
+const Board: React.FC<BoardProps> = ({ squares, onSquareClick }) => {
   const renderSquare = (i: number) => {
     return <Square value={squares[i]} onSquareClick={() => onSquareClick(i)} />;
   };

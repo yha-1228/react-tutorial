@@ -1,12 +1,12 @@
-import React from 'react';
-import './style.css';
+import React from "react";
+import "./style.css";
 
-type Props = {
+type SquareProps = {
   value: any;
   onSquareClick: (event: React.MouseEvent<HTMLButtonElement, MouseEvent>) => void;
 };
 
-const Square: React.FC<Props> = (props) => {
+const Square: React.FC<SquareProps> = (props) => {
   return (
     <button className="Square" onClick={props.onSquareClick}>
       {props.value}

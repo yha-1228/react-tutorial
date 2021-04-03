@@ -1,31 +1,31 @@
 // TODO: 履歴内のそれぞれの着手の位置を (col, row) というフォーマットで表示する。
 // DONE: 着手履歴のリスト中で現在選択されているアイテムをボールドにする。
 // DONE: Board でマス目を並べる部分を、ハードコーディングではなく 2 つのループを使用するように書き換える。
-// TODO: 着手履歴のリストを昇順・降順いずれでも並べかえられるよう、トグルボタンを追加する。
+// DONE: 着手履歴のリストを昇順・降順いずれでも並べかえられるよう、トグルボタンを追加する。
 // TODO: どちらかが勝利した際に、勝利につながった 3 つのマス目をハイライトする。
 // TODO: どちらも勝利しなかった場合、結果が引き分けになったというメッセージを表示する。
 
-import React from 'react';
-import classNames from 'classnames';
-import calculateWinner from './calculateWinner';
-import Board from '../Board';
-import './style.css';
+import React from "react";
+import classNames from "classnames";
+import { calculateWinner } from "./calculateWinner";
+import Board from "../Board";
+import "./style.css";
 
-type State = {
+export type GameState = {
   histories: { squares: any[] }[];
   stepNumber: number;
   xIsNext: boolean;
-  sort: 'asc' | 'desc';
+  sort: "asc" | "desc";
 };
 
-class Game extends React.Component<any, State> {
+class Game extends React.Component<any, GameState> {
   constructor(props: any) {
     super(props);
     this.state = {
       histories: [{ squares: Array(9).fill(null) }],
       stepNumber: 0,
       xIsNext: true,
-      sort: 'asc',
+      sort: "asc",
     };
     this.handleSquareClick = this.handleSquareClick.bind(this);
     this.jumpTo = this.jumpTo.bind(this);
@@ -40,14 +40,12 @@ class Game extends React.Component<any, State> {
       return;
     }
 
-    squares[i] = this.state.xIsNext ? 'X' : 'O';
+    squares[i] = this.state.xIsNext ? "X" : "O";
     this.setState({
       histories: [...histories, { squares: squares }], // マス目の履歴
       stepNumber: histories.length, // 履歴の数
       xIsNext: !this.state.xIsNext,
     });
-
-    console.log(this.state);
   }
 
   jumpTo(historyIndex: number) {
@@ -73,7 +71,7 @@ class Game extends React.Component<any, State> {
       </li>
     ));
 
-    const status = winner ? `Winner: ${winner}` : `Next player: ${this.state.xIsNext ? 'X' : 'O'}`;
+    const status = winner ? `Winner: ${winner}` : `Next player: ${this.state.xIsNext ? "X" : "O"}`;
 
     return (
       <div className="Game">
@@ -84,18 +82,14 @@ class Game extends React.Component<any, State> {
         <div className="Game__info">
           <p>
             <button
-              onClick={() =>
-                this.setState({
-                  sort: this.state.sort === 'asc' ? 'desc' : 'asc',
-                })
-              }
+              onClick={() => this.setState({ sort: this.state.sort === "asc" ? "desc" : "asc" })}
             >
               {this.state.sort}
             </button>
           </p>
 
           <div>{status}</div>
-          <ol>{moves}</ol>
+          <ol>{this.state.sort === "asc" ? moves : [...moves].reverse()}</ol>
         </div>
       </div>
     );
